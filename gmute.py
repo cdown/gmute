@@ -65,6 +65,10 @@ def mark(user, password):
 
 
 def main():
+    if sys.stdin.isatty():
+        print("Mail file should be provided on stdin", file=sys.stderr)
+        return 1
+
     cp = configparser.ConfigParser()
     config = cp.read(CONFIG_FILE)
     if len(config) != 1:
