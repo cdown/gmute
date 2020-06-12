@@ -22,22 +22,16 @@ cur = imaplib.IMAP4_SSL("imap.gmail.com")
 def get_message_id_from_stdin():
     hp = email.parser.HeaderParser()
     headers = hp.parse(sys.stdin, headersonly=True)
-    mid = headers.get("Message-ID")
-    if not mid:
-        raise ValueError("Can't get Message-ID from stdin")
-    return mid
+    return headers["Message-ID"]
 
 
 def icheck(ret):
-    status, data = ret
+    status, (data,) = ret
 
     if status != "OK":
         raise ValueError("Bad status '{}': {}".format(status, data))
 
-    if len(data) != 1:
-        raise ValueError("Should only have a single item: {}".format(len(data)))
-
-    return data[0].decode("ascii")
+    return data.decode("ascii")
 
 
 def mark(user, password):
