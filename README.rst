@@ -23,3 +23,18 @@ following binding to your configuration with gmute in mutt's $PATH:
 
 Then, with a message from a thread you want to mute highlighted in the index,
 press M to mute that thread, just as would work in the Gmail UI.
+
+Installation
+============
+
+To install the latest stable version from PyPi:
+
+.. code::
+
+    pip install -U gmute
+
+To install the latest development version directly from GitHub:
+
+.. code::
+
+    pip install -U git+https://github.com/cdown/gmute.git
