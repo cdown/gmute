@@ -24,6 +24,9 @@ following binding to your configuration with gmute in mutt's $PATH:
 Then, with a message from a thread you want to mute highlighted in the index,
 press M to mute that thread, just as would work in the Gmail UI.
 
+You might also want to ``unset wait_key`` in your mutt config to avoid the
+"press any key to continue" prompt.
+
 Installation
 ============
 
