@@ -8,7 +8,7 @@ with open("README.rst") as readme_f:
 
 setup(
     name="gmute",
-    version="1.0.0",
+    version="1.1.0",
     python_requires=">=3.5",
     description="Gmail mute support for mutt and other email clients",
     long_description=README,
