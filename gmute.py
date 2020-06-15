@@ -40,12 +40,12 @@ def mark(user, password):
 
     print("Logging in...")
     icheck(cur.login(user, password))
-    icheck(cur.select("Inbox"))
+    icheck(cur.select('"[Gmail]/All Mail"'))
 
     initial_uid = icheck(cur.search(None, "(HEADER Message-ID %s)" % mid))
 
     if not initial_uid:
-        print("No such message in inbox: {}".format(mid), file=sys.stderr)
+        print("No such message: {}".format(mid), file=sys.stderr)
         return 1
 
     data = icheck(cur.fetch(str(initial_uid), "(X-GM-THRID)"))
