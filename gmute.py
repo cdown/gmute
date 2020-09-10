@@ -16,7 +16,7 @@ import sys
 import configparser
 
 CONFIG_FILE = os.path.expanduser("~/.config/gmute")
-PIPE_SEP = "_PIPE_SEP_"
+PIPE_SEP = b"_PIPE_SEP_"
 
 cur = imaplib.IMAP4_SSL("imap.gmail.com")
 
@@ -34,8 +34,8 @@ def raise_if_invalid_message_id(mid):
 
 def get_one_message_id_and_seek_to_next():
     header_lines = []
-    for line in sys.stdin:
-        line = line.rstrip("\n")
+    for line in sys.stdin.buffer:
+        line = line.rstrip(b"\n")
 
         if not line:
             break
@@ -49,13 +49,15 @@ def get_one_message_id_and_seek_to_next():
     if not header_lines:
         return None
 
-    for line in sys.stdin:
-        if line == PIPE_SEP + "\n":
+    for line in sys.stdin.buffer:
+        if line == PIPE_SEP + b"\n":
             break
 
     hp = email.parser.HeaderParser()
-    header_lines.append("")  # Trailing newline
-    headers = hp.parsestr("\n".join(header_lines), headersonly=True)
+    header_lines.append(b"")  # Trailing newline
+    headers = hp.parsestr(
+        "\n".join(line.decode("ascii") for line in header_lines), headersonly=True
+    )
     mid = headers["Message-ID"]
 
     raise_if_invalid_message_id(mid)
