@@ -56,7 +56,8 @@ def get_one_message_id_and_seek_to_next():
     hp = email.parser.HeaderParser()
     header_lines.append(b"")  # Trailing newline
     headers = hp.parsestr(
-        "\n".join(line.decode("ascii") for line in header_lines), headersonly=True
+        "\n".join(line.decode("ascii", errors="ignore") for line in header_lines),
+        headersonly=True,
     )
     mid = headers["Message-ID"]
 
